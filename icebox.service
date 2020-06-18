@@ -1,0 +1,11 @@
+[Unit]
+Description=Python program that monitors the temperature and signals a GPIO pin.
+After=network.target
+
+[Service]
+User=<user>
+WorkingDirectory=<path>
+ExecStart=<path>/venv/bin/python <path>
+
+[Install]
+WantedBy=multi-user.target
