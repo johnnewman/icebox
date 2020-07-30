@@ -2,8 +2,8 @@
 
 This program will continuously monitor the system on chip temperature of a
 Raspberry Pi. If the temperature passes the threshold defined in MAX_TEMP, the
-SIGNAL_PIN will be set to high. Use this high signal with a transistor's base
-pin to turn on a high current cooling fan.
+SIGNAL_PIN will be set to high. Use this high signal with a transistor or relay
+to turn on a high-current or high-voltage cooling fan.
 """
 
 import RPi.GPIO as GPIO
@@ -17,8 +17,10 @@ __version__ = "1.1.0"
 __maintainer__ = "John Newman"
 __status__ = "Production"
 
-MAX_TEMP = 40 # Celcius 
-SIGNAL_PIN = 16 # Board numbering, not BCM
+MAX_TEMP = 50 # Celcius 
+SIGNAL_PIN = 29 # Board numbering, not BCM
+COOLING_TIME = 60 # Seconds
+TEMP_CHECK_INTERVAL = 10 # Seconds
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(SIGNAL_PIN, GPIO.OUT)
@@ -29,10 +31,10 @@ while True:
         if temp > MAX_TEMP:
             print("SoC temp of %.1f'C past %i'C threshold. Signaling pin %i." % (temp, MAX_TEMP, SIGNAL_PIN))
             GPIO.output(SIGNAL_PIN, GPIO.HIGH)
-            time.sleep(20)
+            time.sleep(COOLING_TIME)
         else:
             GPIO.output(SIGNAL_PIN, GPIO.LOW)
     except Exception as e:
         print('Exception %s' % e)
-    time.sleep(10)
+    time.sleep(TEMP_CHECK_INTERVAL)
 GPIO.cleanup()
