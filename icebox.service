@@ -1,6 +1,5 @@
 [Unit]
 Description=Python program that monitors the temperature and signals a GPIO pin.
-After=network.target
 
 [Service]
 User=<user>
