@@ -42,6 +42,7 @@ def main_loop():
     while shouldMonitor:
 
         if time.time() - tempReadTime < TEMP_CHECK_INTERVAL:
+            time.sleep(1)
             continue
 
         try:
