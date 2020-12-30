@@ -77,7 +77,7 @@ def main_loop():
         
 def read_temperature() -> float:
     global tempReadTime
-    stream = os.popen("vcgencmd measure_temp | egrep -o \'[0-9]*\.[0-9]*\'")
+    stream = os.popen("vcgencmd measure_temp | egrep -o \'[0-9]*\\.[0-9]*\'")
     tempReadTime = time.time()
     return float(stream.read())
 
